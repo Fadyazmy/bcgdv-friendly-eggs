@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import login from "./Login";
+import home from "./Home";
+import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Friendly egggggs!!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/">Friendly Eggs</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/login">Login</Nav.Link>
+            
+            {/* TODO: Julia */}
+            <Nav.Link href="/request_feedback">Request</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Switch>
+        <Route exact path="/" component={home} />
+        <Route exact path="/login" component={login} />
+        {/* <Route exact path="/request_feedback" component={request_feedback} /> */}
+      </Switch>
+    </main>
   );
 }
 
