@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Login from './components/Login_SignUp';
+import RequestFeedback from './components/RequestFeedback';
 import Home from "./Home";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
@@ -17,13 +18,12 @@ const App = () => {
         <Navbar.Brand href="/">Friendly Eggs</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto"> 
+          <Nav className="mr-auto">
             {user && user.id? [
               <Nav.Link key="signout" onClick={signOut} href="/"> Log out</Nav.Link>
             ]: (
               <Nav.Link href="/login">Login</Nav.Link>
             )}
-            {/* TODO: Julia */}
             <Nav.Link href="/request_feedback">Request</Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -42,7 +42,8 @@ const App = () => {
               component={Home}
             />
           )}
-        <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={Login} />
+        <Route exact path="/request_feedback" component={RequestFeedback} />
         <Route exact path="/" component={Home} />
         {/* <Route exact path="/request_feedback" component={request_feedback} /> */}
       </Switch>
