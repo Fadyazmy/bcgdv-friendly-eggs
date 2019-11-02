@@ -1,28 +1,49 @@
-import React from "react";
-import login from "./Login";
-import home from "./Home";
+import React, { useContext } from "react";
+import Login from './components/Login_SignUp';
+import Home from "./Home";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
+import { UserContext } from "./providers/UserProvider";
+import { signOut } from './firebase';
 
-function App() {
+const App = () => {
+  const user = useContext(UserContext);
+  // console.log(" HELLO ", user);
+
   return (
     <main>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">Friendly Eggs</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/login">Login</Nav.Link>
-            
+          <Nav className="mr-auto"> 
+            {user && user.id? [
+              <Nav.Link key="signout" onClick={signOut} href="/"> Log out</Nav.Link>
+            ]: (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
             {/* TODO: Julia */}
             <Nav.Link href="/request_feedback">Request</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
       <Switch>
-        <Route exact path="/" component={home} />
-        <Route exact path="/login" component={login} />
+      {user && user.id ? (
+            [
+              <Route exact path="/" key={"/-not_signed_in"} component={Home} />
+            ]
+          ) : (
+            <Route
+              exact
+              path="/"
+              key={"/-dashboard"}
+              // Dashboard
+              component={Home}
+            />
+          )}
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
         {/* <Route exact path="/request_feedback" component={request_feedback} /> */}
       </Switch>
     </main>
