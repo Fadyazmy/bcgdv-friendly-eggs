@@ -16,7 +16,7 @@
 }
 
 .skills {
-    margin: 80px;
+    margin: 40px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -32,10 +32,27 @@
     position: center;
     text-align-last: center;
     text-align: center;
-    margin-top: 7%;
+    margin-top: 5%;
     background-color: white;
-    color: #595a5c;
     height: 60px;
 }
 
+.centerSubmit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.submit {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    float:left;
+    text-align: center;
+    width: 25%;
+    margin-left:41%;
+    overflow:hidden;
+    color: white;
+    height: 60px;
+    border-radius: 5px;
+    padding-top: 18px;
+}
 
