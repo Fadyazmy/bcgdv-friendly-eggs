@@ -1,0 +1,41 @@
+.wrapper {
+    background-color: #f5d882;
+    height: 1000px;
+}
+
+.square {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    float:left;
+    position: relative;
+    width: 30%;
+    margin:1.66%;
+    overflow:hidden;
+    background-color: white;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.skills {
+    margin: 80px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 10%;
+}
+
+.title {
+    padding-top: 7%;
+    text-align: center;
+    color: #595a5c;
+}
+.content {
+    position: center;
+    text-align-last: center;
+    text-align: center;
+    margin-top: 7%;
+    background-color: white;
+    color: #595a5c;
+    height: 60px;
+}
+
+
