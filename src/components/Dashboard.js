@@ -59,8 +59,16 @@ class Dashboard extends Component {
         return (
         <div>
             <div className="header">
-                <p>give feedback</p>
-                <p>request feedback</p>
+                <div className="feedback-button">
+                    <div className="feedback-content">
+                        Give feedback
+                    </div>
+                </div>
+                <div className="feedback-button">
+                    <div className="feedback-content">
+                        Request feedback
+                    </div>
+                </div>
             </div>
             <p> hellow o rl d</p>
 >>>>>>> begin making a header
