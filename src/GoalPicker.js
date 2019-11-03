@@ -58,39 +58,63 @@ class GoalPicker extends Component {
                 });
         }
         else if (skillNum === 4) {
+            let newArray = !this.state.s4 ? this.state.skillsArray.concat("Time management") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Time management";
+            });
             this.setState(
                 {s4: this.state.s4 ? false : true,
-                    numClicked: !this.state.s4 ? this.state.numClicked+1 : this.state.numClicked-1}
+                    numClicked: !this.state.s4 ? this.state.numClicked+1 : this.state.numClicked-1,
+                    skillsArray: newArray}
             )
         }
         else if (skillNum === 5) {
+            let newArray = !this.state.s5 ? this.state.skillsArray.concat("Storytelling") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Storytelling";
+            });
             this.setState(
                 {s5: this.state.s5 ? false : true,
-                    numClicked: !this.state.s5 ? this.state.numClicked+1 : this.state.numClicked-1}
+                numClicked: !this.state.s5 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray}
             )
         }
         else if (skillNum === 6) {
+            let newArray = !this.state.s6 ? this.state.skillsArray.concat("Leadership") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Leadership";
+            });
             this.setState(
                 {s6: this.state.s6 ? false : true,
-                    numClicked: !this.state.s6 ? this.state.numClicked+1 : this.state.numClicked-1}
+                    numClicked: !this.state.s6 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray}
             )
         }
         else if (skillNum === 7) {
+            let newArray = !this.state.s7 ? this.state.skillsArray.concat("Active listening") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Active listening";
+            });
             this.setState(
                 {s7: this.state.s7 ? false : true,
-                    numClicked: !this.state.s7 ? this.state.numClicked+1 : this.state.numClicked-1}
+                    numClicked: !this.state.s7 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray}
             )
         }
         else if (skillNum === 8) {
+            let newArray = !this.state.s8 ? this.state.skillsArray.concat("Willingness to ask questions") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Willingness to ask questions";
+            });
             this.setState(
                 {s8: this.state.s8 ? false : true,
-                    numClicked: !this.state.s8 ? this.state.numClicked+1 : this.state.numClicked-1}
+                    numClicked: !this.state.s8 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray}
             )
         }
         else if (skillNum === 9) {
+            let newArray = !this.state.s9 ? this.state.skillsArray.concat("Work ethic") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Work ethic";
+            });
             this.setState(
                 {s9: this.state.s9 ? false : true,
-                    numClicked: !this.state.s9 ? this.state.numClicked+1 : this.state.numClicked-1}
+                    numClicked: !this.state.s9 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray}
             )
         }
     }
@@ -99,8 +123,7 @@ class GoalPicker extends Component {
         console.log("this.context: ", this.context);
         if (this.state.numClicked === 3) {
             this.setState({submitClicked: true})
-            // TODO: create an array
-            firestore.doc(`/users/${this.context.id}`).update({ skills: ['writing', 'speaking' ,'breathing'] })
+            firestore.doc(`/users/${this.context.id}`).update({ skills: this.state.skillsArray })
             this.props.history.push('/');
         }
         
