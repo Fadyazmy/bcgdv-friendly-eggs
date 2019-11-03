@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { UserContext } from "./providers/UserProvider";
 import { signOut } from './firebase';
+import RespondFeedback from "./components/RespondFeedback";
 
 const App = () => {
   const user = useContext(UserContext);
@@ -21,6 +22,7 @@ const App = () => {
           <Nav className="mr-auto">
             {user && user.id? [
               <Nav.Link href="/request_feedback">Request</Nav.Link>,
+              <Nav.Link href="/respond_feedback">Respond</Nav.Link>,
               <Nav.Link key="signout" onClick={signOut} href="/"> Log out</Nav.Link>
             ]: (
               <Nav.Link href="/login">Login</Nav.Link>
@@ -44,6 +46,7 @@ const App = () => {
           )}
           <Route exact path="/login" component={Login} />
         <Route exact path="/request_feedback" component={RequestFeedback} />
+        <Route exact path="/respond_feedback" component={RespondFeedback} />
         <Route exact path="/" component={Home} />
       </Switch>
     </main>
