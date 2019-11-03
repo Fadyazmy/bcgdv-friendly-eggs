@@ -28,15 +28,13 @@ const App = () => {
             ]: (
               <Nav.Link href="/login">Login</Nav.Link>
             )}
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-            <Nav.Link href="/request_feedback">Request</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
       <Switch>
       {user && user.id ? (
             [
-              <Route exact path="/" key={"/-not_signed_in"} component={Home} />
+              <Route exact path="/" key={"/-not_signed_in"} component={Dashboard} />
             ]
           ) : (
             <Route
@@ -48,10 +46,10 @@ const App = () => {
             />
           )}
           <Route exact path="/login" component={Login} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          {/* <Route exact path="/dashboard" component={Dashboard} /> */}
         <Route exact path="/request_feedback" component={RequestFeedback} />
         <Route exact path="/respond_feedback" component={RespondFeedback} />
-        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/" component={Dashboard} /> */}
       </Switch>
     </main>
   );

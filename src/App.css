@@ -20,3 +20,12 @@
 .App-link {
   color: #09d3ac;
 }
+
+.bg-light {
+  background-color: #f5d882!important;
+}
+
+.form-check-label {
+  margin-bottom: 0;
+  font-weight: 600;
+}
