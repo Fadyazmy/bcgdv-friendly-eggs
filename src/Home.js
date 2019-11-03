@@ -12,15 +12,7 @@ class Home extends Component {
     return (
       <div className="App-header App">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Friendly egggggs!!</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Log in to access your Friendly Eggs profile!!</p>
       </div>
     );
   }
