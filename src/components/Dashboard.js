@@ -67,7 +67,7 @@ class Dashboard extends Component {
         const skill3 = "Work Ethic";
         
         return (
-        <div>
+        <div className="wrapper">
             <div className="header">
                 <div className="feedback-button">
                     <div className="feedback-content">
@@ -80,6 +80,7 @@ class Dashboard extends Component {
                     </div>
                 </div>
             </div>
+<<<<<<< 21c18c0bf349772da6bb570a71292dd396b3f987
             <DropdownButton id="dropdown-basic-button" 
                             title={this.state.focusedSkill} 
                             onSelect={(evt) => this.handleSelect(evt)}>
@@ -89,6 +90,22 @@ class Dashboard extends Component {
             </DropdownButton>
             <p> hellow o rl d</p>
 >>>>>>> begin making a header
+=======
+            <div className="dataPanel">
+                <DropdownButton id="dropdown-basic-button" 
+                                title={this.state.focusedSkill} 
+                                onSelect={(evt) => this.handleSelect(evt)}>
+                    <Dropdown.Item eventKey={skill1}>{skill1}</Dropdown.Item>
+                    <Dropdown.Item eventKey={skill2}>{skill2}</Dropdown.Item>
+                    <Dropdown.Item eventKey={skill3}>{skill3}</Dropdown.Item>
+                </DropdownButton>
+                <p> insert  G R A P H</p>
+                <p> insert Scrolling stream of feedback comments</p>
+            </div>
+            <div className="actionPanel">
+                <p>insert A C T I O N checklist</p>    
+            </div>
+>>>>>>> set up flex for data layout and actionable steps layout
         </div>
         );
     }
