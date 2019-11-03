@@ -11,7 +11,7 @@ class Home extends Component {
   render() {
     return (
       <div className="App-header App">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>Log in to access your Friendly Eggs profile!!</p>
       </div>
     );
