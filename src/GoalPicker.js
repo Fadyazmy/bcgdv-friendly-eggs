@@ -8,7 +8,6 @@ class GoalPicker extends Component {
     constructor(props) {
         super(props);
         
-
         this.state = {
             s1: false,
             s2: false,
