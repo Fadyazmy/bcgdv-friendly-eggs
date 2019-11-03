@@ -4,6 +4,7 @@ import { firestore, snapshot } from './firebase';
 import { UserContext } from './providers/UserProvider'
 
 class GoalPicker extends Component {
+
     constructor(props) {
         super(props);
         
@@ -130,7 +131,6 @@ class GoalPicker extends Component {
     }
 
     render() {
-        console.log("skills array " + this.state.skillsArray);
         const clickedColor = "#d47c5f";
         const defaultColor = "#595a5c";
         const sReady = "#d47c5f";
