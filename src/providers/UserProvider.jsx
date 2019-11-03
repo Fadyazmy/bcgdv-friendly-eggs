@@ -1,5 +1,5 @@
 import React, { Component, createContext } from "react";
-import { auth, createUserProfileDocument } from "../firebase";
+import { auth, createUserProfileDocument, firestore } from "../firebase";
 import { withRouter } from 'react-router-dom';
 
 export const UserContext = createContext({ user: null });
@@ -19,9 +19,11 @@ class UserProvider extends Component {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapshot => {
           // if user signs in again and they verified their email, update user properties
+          firestore.doc(`/users/${snapshot.id}`).update({ emailVerified: userAuth.emailVerified })
+          
           // if(!snapshot.data().emailVerified && userAuth.emailVerified){
           //   // update user profile on DB
-          //   firestore.doc(`/users/${snapshot.id}`).update({ emailVerified: userAuth.emailVerified })
+            
           //   // console.log("UPDATING emailVerified")
           // }
           this.setState({ user: { id: snapshot.id, ...snapshot.data() } });
