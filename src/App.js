@@ -20,11 +20,11 @@ const App = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {user && user.id? [
+              <Nav.Link href="/request_feedback">Request</Nav.Link>,
               <Nav.Link key="signout" onClick={signOut} href="/"> Log out</Nav.Link>
             ]: (
               <Nav.Link href="/login">Login</Nav.Link>
             )}
-            <Nav.Link href="/request_feedback">Request</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -45,7 +45,6 @@ const App = () => {
           <Route exact path="/login" component={Login} />
         <Route exact path="/request_feedback" component={RequestFeedback} />
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/request_feedback" component={request_feedback} /> */}
       </Switch>
     </main>
   );

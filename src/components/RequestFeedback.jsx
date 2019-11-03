@@ -2,61 +2,102 @@ import React from "react";
 import Select from "react-select";
 import { Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import { faUserPlus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { firestore } from "../firebase";
+import { UserContext } from "../providers/UserProvider";
 
-/*
-TODO: limit the amount of questions you can ask
-*/
 class RequestFeedback extends React.Component {
   state = {
-    questions: [{skill:""}],
-    frequency: "one_time",
-    userSearchQuery: "",
+    questions: [{ skill: "" }],
+    title: "",
+    question_list: [],
+    frequency: "",
     selectedUsers: [],
-    allUsers: [{label: "Fadi", value: "fadi@dvhacks.com"},{label: "Matan", value: "matan@dvhacks.com"}, {label: "Jacqui", value: "jacqui@dvhacks.com"}, {label: "Julie", value: "julie@dvhacks.com"}]
-  }
-handleChange = (e) => {
-    if (["question", "type"].includes(e.target.className) ) {
-      let questions = [...this.state.questions]
-      questions[e.target.dataset.id][e.target.className] = e.target.value.toUpperCase()
-      this.setState({ questions }, () => console.log(this.state.questions))
-    } else {
-      this.setState({ [e.target.name]: e.target.value })
-    }
-  }
-handleQuestionChange = idx => e => {
-  console.log(idx);
-  const newQuestions = this.state.questions.map((question, qidx) => {
-      if (idx !== qidx) return question;
-      return { ...question, question: e.target.value };
-    });
+    userSearchQuery: "",
+    allUsers: [
+      { label: "Fadi", value: "fadi_user_id" },
+      { label: "Matan", value: "matan_user_id" },
+      { label: "Jacqui", value: "jacqui_user_id" },
+      { label: "Julie", value: "julie_user_id" }
+    ]
+  };
+  static contextType = UserContext
 
-  this.setState({ questions: newQuestions });
-}
-addQuestion = () => {
-    this.setState((prevState) => ({
-      questions: [...prevState.questions, {question:"", type:"free_response"}],
-    }));
+  handleQuestionChange = (event) => {
+    this.setState({question_list: [...this.state.question_list, event]});
+    console.log("question_list: ", this.state.question_list);
   }
-removeQuestion = (idx) => {
-  this.setState({
-    questions: this.state.questions.filter((q, qidx) => idx !== qidx)
-  });
-}
-addUser = (user) => {
-  this.setState({selectedUsers: [...this.state.selectedUsers, user]});
-}
-removeUser = (idx) => {
-  this.setState({
-    selectedUsers: this.state.selectedUsers.filter((u, uidx) => idx !== uidx)
-  });
-}
-handleSubmit = (e) => { console.log(e); e.preventDefault() }
-render() {
-    let { questions, allUsers, userSearchQuery, selectedUsers} = this.state
-    const rendered_questions = []
-    for (const [index, value] of questions.entries()) {
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    console.log("[name]: ", name, "value: ", value)
+    this.setState({ [name]: value });
+  };
+
+  addQuestion = () => {
+    this.setState(prevState => ({
+      questions: [
+        ...prevState.questions,
+        { question: "", type: "free_response" }
+      ]
+    }));
+  };
+
+  removeQuestion = idx => {
+    this.setState({
+      questions: this.state.questions.filter((q, qidx) => idx !== qidx)
+    });
+  };
+
+  addUser = user => {
+    this.setState({ selectedUsers: [...this.state.selectedUsers, user] });
+  };
+
+  removeUser = idx => {
+    this.setState({
+      selectedUsers: this.state.selectedUsers.filter((u, uidx) => idx !== uidx)
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { title, frequency, selectedUsers, question_list} = this.state;
+    console.log("frequency: ", frequency, "selectedUsers: ". selectedUsers, "questions: ", question_list );
+    
+    let sender = {
+      type: 'solicited',
+      title, 
+      frequency, 
+      selectedUsers,
+      question_list
+    }
+
+    let reciever  = {
+      type: 'requested',
+      title, 
+      frequency, 
+      selectedUsers,
+      question_list
+    }
+
+    console.log("this.context: ", this.context)
+    firestore.doc(`/users/${this.context.id}`).collection('forms').add(sender);
+    this.state.selectedUsers.forEach((obj)=> {
+      console.log("SENDING", `/users/${obj.value}`);
+      firestore.doc(`/users/${obj.value}`).collection('forms').add(reciever);
+    })
+  };
+
+  render() {
+    let { questions, allUsers, userSearchQuery, selectedUsers } = this.state;
+    const rendered_questions = [];
+    
+    console.log("selectedUsers: ", this.state.selectedUsers);
+
+    for (let [index, value] of questions.entries()) {
       rendered_questions.push(
-        <Form.Group controlId="formGroupQuestion" key={index}>
+        <Form.Group onChange={e =>  this.handleQuestionChange(e.target.value)} controlId="formGroupQuestion" key={index}>
           <Form.Label>What could be improved about my ...?</Form.Label>
           <Form.Control as="select">
             <option value="communication_skills">Communication Skills</option>
@@ -70,44 +111,67 @@ render() {
             <option value="creativity">Creativity</option>
           </Form.Control>
 
-          <Button onClick={() => this.removeQuestion(index)}>Remove Question</Button>
-        </Form.Group>)
+          {/* Remove answer */}
+          <Button onClick={() => this.removeQuestion(index)}>
+            Remove Question
+          </Button>
+        </Form.Group>
+      );
     }
-    const selectedUserList =  selectedUsers.map((user, idx) => {
-      return <div><li key={idx}>{user.label} {user.value}</li> <button onClick={()=>this.removeUser(idx)}>Remove</button></div>;
+
+    const selectedUserList = selectedUsers.map((user, idx) => {
+      return (
+        <div key={idx} style={{ paddingBottom: "10px" }}>
+          <li key={idx}>
+            {user.label} 
+          </li>{" "}
+          <button onClick={() => this.removeUser(idx)}>Remove</button>
+        </div>
+      );
     });
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form
+        style={{ width: "800px", margin: "auto" }}
+        onSubmit={this.handleSubmit}
+      >
         <Form.Group controlId="formGroupTitle">
-          <Form.Label>Form Title</Form.Label>
-          <Form.Control size="lg" type="title" placeholder="Enter form title" />
+          <Form.Label style={{fontSize: '30px'}}> Feedback topic</Form.Label>
+          <Form.Control name="title" onChange={this.handleChange} size="lg" type="title" placeholder="e.g: My roadmap presentation to Morgan Stanley on Tuesday (6th of Oct)" />
         </Form.Group>
         <Form.Group controlId="formGroupFrequency">
-          <Form.Label>Frequency</Form.Label>
-            <Form.Control as="select">
-              <option value="one_time">One Time</option>
-              <option value="monthly">Monthly</option>
-            </Form.Control>
+          <Form.Label>Frequency of feedback request</Form.Label>
+          <Form.Control name="frequency" onChange={this.handleChange} as="select">
+            <option value="one_time">Once</option>
+            <option value="monthly">Monthly</option>
+          </Form.Control>
         </Form.Group>
-        { rendered_questions }
-        <Button variant="secondary" type="button" onClick={this.addQuestion}>
-          Add Question
-        </Button>
+        <p> Form questions </p>
+        <div>
+          Add Question{" "}
+          <i className="fas fa-plus">
+            <FontAwesomeIcon
+              icon={faPlus}
+              style={{ color: "blue" }}
+              onClick={this.addQuestion}
+            />
+          </i>
+        </div>
+
+        {rendered_questions}
         <Select
           value={userSearchQuery}
           options={allUsers}
           onChange={this.addUser}
-          placeholder= "Search..."
+          placeholder="Search..."
           openMenuOnClick={false}
         />
-        { selectedUserList }
+        <div style={{ paddingBottom: "5px" }}>{selectedUserList}</div>
         <Button variant="primary" type="submit" onClick={this.handleSubmit}>
           Submit
         </Button>
       </Form>
-
-    )
+    );
   }
 }
-export default withRouter(RequestFeedback)
+export default withRouter(RequestFeedback);
