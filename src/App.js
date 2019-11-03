@@ -1,7 +1,6 @@
-
-import GoalPicker from "./GoalPicker";
 import React, { useContext } from "react";
 import Login from './components/Login_SignUp';
+import GoalPicker from './components/GoalPicker';
 import RequestFeedback from './components/RequestFeedback';
 import Home from "./Home";
 import "./App.css";
