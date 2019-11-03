@@ -16,6 +16,7 @@ class Dashboard extends Component {
         }
     };
 
+<<<<<<< 643147873d800d5fd3f753598b1d16da0790cbf5
     handleSelect = (eventKey) => {
         this.setState({focusedSkill: eventKey});
     }
@@ -53,6 +54,16 @@ class Dashboard extends Component {
             <div className="actionPanel">
                 <p>insert A C T I O N checklist</p>    
             </div>
+=======
+    render () {
+        return (
+        <div>
+            <div className="header">
+                <p>give feedback</p>
+                <p>request feedback</p>
+            </div>
+            <p> hellow o rl d</p>
+>>>>>>> begin making a header
         </div>
         );
     }
