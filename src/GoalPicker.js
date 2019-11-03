@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import './GoalPicker.css';
+import { firestore, snapshot } from './firebase';
+import { UserContext } from './providers/UserProvider'
 
 class GoalPicker extends Component {
-
     constructor(props) {
         super(props);
         
@@ -19,27 +20,42 @@ class GoalPicker extends Component {
             s9: false,
             numClicked: 0,
             submitClicked: false,
+            skillsArray: [],
         }
     };
 
+    static contextType = UserContext;
+
     boxClick = (skillNum) => {
         if (skillNum === 1) {
+            let newArray = !this.state.s1 ? this.state.skillsArray.concat("Communication skills") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Communication skills";
+            });
             this.setState(
                 {s1: this.state.s1 ? false : true,
-                numClicked: !this.state.s1 ? this.state.numClicked+1 : this.state.numClicked-1}
-            )
+                numClicked: !this.state.s1 ? this.state.numClicked+1 : this.state.numClicked-1,
+                skillsArray: newArray,
+                });
         }
         else if (skillNum === 2) {
+            let newArray = !this.state.s2 ? this.state.skillsArray.concat("Presentation skills") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Presentation skills";
+            });
             this.setState(
                 {s2: this.state.s2 ? false : true,
-                    numClicked: !this.state.s2 ? this.state.numClicked+1 : this.state.numClicked-1}
-            )
+                    numClicked: !this.state.s2 ? this.state.numClicked+1 : this.state.numClicked-1,
+                    skillsArray: newArray,
+                });
         }
         else if (skillNum === 3) {
+            let newArray = !this.state.s3 ? this.state.skillsArray.concat("Collaboration") : this.state.skillsArray.filter(function(skill, index, arr){
+                return skill !== "Collaboration";
+            });
             this.setState(
                 {s3: this.state.s3 ? false : true,
-                    numClicked: !this.state.s3 ? this.state.numClicked+1 : this.state.numClicked-1}
-            )
+                    numClicked: !this.state.s3 ? this.state.numClicked+1 : this.state.numClicked-1,
+                    skillsArray: newArray,
+                });
         }
         else if (skillNum === 4) {
             this.setState(
@@ -80,15 +96,18 @@ class GoalPicker extends Component {
     }
 
     submitClick = () => {
-        // TODO: send to database
+        console.log("this.context: ", this.context);
         if (this.state.numClicked === 3) {
             this.setState({submitClicked: true})
+            // TODO: create an array
+            firestore.doc(`/users/${this.context.id}`).update({ skills: ['writing', 'speaking' ,'breathing'] })
+            this.props.history.push('/');
         }
         
     }
 
     render() {
-        
+        console.log("skills array " + this.state.skillsArray);
         const clickedColor = "#d47c5f";
         const defaultColor = "#595a5c";
         const sReady = "#d47c5f";
