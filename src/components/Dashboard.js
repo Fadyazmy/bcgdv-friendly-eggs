@@ -16,11 +16,15 @@ class Dashboard extends Component {
         }
     };
 
+<<<<<<< 3103cee94241121f9f56958a72a5d7533b8d3219
 <<<<<<< 643147873d800d5fd3f753598b1d16da0790cbf5
+=======
+>>>>>>> dropdown is dynamic
     handleSelect = (eventKey) => {
         this.setState({focusedSkill: eventKey});
     }
 
+<<<<<<< 3103cee94241121f9f56958a72a5d7533b8d3219
     render () {
         const skill1 = "Communication Skills";
         const skill2 = "Collaboration";
@@ -55,7 +59,13 @@ class Dashboard extends Component {
                 <p>insert A C T I O N checklist</p>    
             </div>
 =======
+=======
+>>>>>>> dropdown is dynamic
     render () {
+        const skill1 = "Communication Skills";
+        const skill2 = "Collaboration";
+        const skill3 = "Work Ethic";
+        
         return (
         <div>
             <div className="header">
@@ -70,6 +80,13 @@ class Dashboard extends Component {
                     </div>
                 </div>
             </div>
+            <DropdownButton id="dropdown-basic-button" 
+                            title={this.state.focusedSkill} 
+                            onSelect={(evt) => this.handleSelect(evt)}>
+                <Dropdown.Item eventKey={skill1}>{skill1}</Dropdown.Item>
+                <Dropdown.Item eventKey={skill2}>{skill2}</Dropdown.Item>
+                <Dropdown.Item eventKey={skill3}>{skill3}</Dropdown.Item>
+            </DropdownButton>
             <p> hellow o rl d</p>
 >>>>>>> begin making a header
         </div>
