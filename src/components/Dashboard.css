@@ -1,0 +1,101 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.header {
+    padding: 18px;
+    text-align: center;
+    background: #f5d882;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.dataPanel {
+    width: 65%;
+    background-color: #f5f5f5;
+    height: 700px;
+}
+
+.actionPanel {
+    width: 35%;
+    background-color: #e5e5e5;
+    height: 700px;
+}
+
+.feedback-button {
+    text-align: center;
+    margin: 5px;
+    background-color: white;
+    height: 20px;
+}
+
+.feedback-content {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    padding-left: 18px;
+    padding-right: 18px;
+    text-align-last: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+/* DROPDOWN */
+/* Dropdown Button */
+.dropbtn {
+    background-color: #d47c5f;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #d47c5f;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ff9494}
+  
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+
+  #dropdown-basic-button {
+    background-color: #d47c5f;
+    margin: 50px;
+    border-color: white;
+    border-radius: 20px;
+  }
+
+  .btn-primary.dropdown-toggle {
+    background-color: #ff9494;
+  }

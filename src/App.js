@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Dashboard from './components/Dashboard';
 import Login from './components/Login_SignUp';
 import RequestFeedback from './components/RequestFeedback';
 import Home from "./Home";
@@ -33,7 +34,7 @@ const App = () => {
       <Switch>
       {user && user.id ? (
             [
-              <Route exact path="/" key={"/-not_signed_in"} component={Home} />
+              <Route exact path="/" key={"/-not_signed_in"} component={Dashboard} />
             ]
           ) : (
             <Route
@@ -45,9 +46,10 @@ const App = () => {
             />
           )}
           <Route exact path="/login" component={Login} />
+          {/* <Route exact path="/dashboard" component={Dashboard} /> */}
         <Route exact path="/request_feedback" component={RequestFeedback} />
         <Route exact path="/respond_feedback" component={RespondFeedback} />
-        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/" component={Dashboard} /> */}
       </Switch>
     </main>
   );
