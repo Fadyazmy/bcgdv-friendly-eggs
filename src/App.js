@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Dashboard from './components/Dashboard';
 import Login from './components/Login_SignUp';
 import RequestFeedback from './components/RequestFeedback';
 import Home from "./Home";
@@ -27,6 +28,8 @@ const App = () => {
             ]: (
               <Nav.Link href="/login">Login</Nav.Link>
             )}
+            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link href="/request_feedback">Request</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -45,6 +48,7 @@ const App = () => {
             />
           )}
           <Route exact path="/login" component={Login} />
+          <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/request_feedback" component={RequestFeedback} />
         <Route exact path="/respond_feedback" component={RespondFeedback} />
         <Route exact path="/" component={Home} />
